@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a17a340ea87f4d92b3c118b052ee12bf" Name="Diagram1">
+        <EntityTypeShape EntityType="MoviesModel.tblActor" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblCast" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblCertificate" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblCountry" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblDirector" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblFilm" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblGenre" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblLanguage" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MoviesModel.tblStudio" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblCertificate" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblCountry" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblDirector" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblLanguage" ManuallyRouted="false" />
+        <AssociationConnector Association="MoviesModel.FK_tblFilm_tblStudio1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

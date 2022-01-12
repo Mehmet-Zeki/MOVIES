@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MoviesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblActor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="int" Nullable="false" />
+          <Property Name="ActorName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ActorDOB" Type="datetime" />
+          <Property Name="ActorGender" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblCast">
+          <Key>
+            <PropertyRef Name="CastID" />
+          </Key>
+          <Property Name="CastID" Type="int" Nullable="false" />
+          <Property Name="CastFilmID" Type="int" />
+          <Property Name="CastActorID" Type="int" />
+          <Property Name="CastCharacterName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblCertificate">
+          <Key>
+            <PropertyRef Name="CertificateID" />
+          </Key>
+          <Property Name="CertificateID" Type="bigint" Nullable="false" />
+          <Property Name="Certificate" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblDirector">
+          <Key>
+            <PropertyRef Name="DirectorID" />
+          </Key>
+          <Property Name="DirectorID" Type="int" Nullable="false" />
+          <Property Name="DirectorName" Type="nvarchar" MaxLength="255" />
+          <Property Name="DirectorDOB" Type="datetime" />
+          <Property Name="DirectorGender" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblFilm">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="int" Nullable="false" />
+          <Property Name="FilmName" Type="nvarchar" MaxLength="255" />
+          <Property Name="FilmReleaseDate" Type="datetime" />
+          <Property Name="FilmDirectorID" Type="int" />
+          <Property Name="FilmLanguageID" Type="int" />
+          <Property Name="FilmCountryID" Type="int" />
+          <Property Name="FilmStudioID" Type="int" />
+          <Property Name="FilmSynopsis" Type="nvarchar(max)" />
+          <Property Name="FilmRunTimeMinutes" Type="int" />
+          <Property Name="FilmCertificateID" Type="bigint" />
+          <Property Name="FilmBudgetDollars" Type="int" />
+          <Property Name="FilmBoxOfficeDollars" Type="int" />
+          <Property Name="FilmOscarNominations" Type="int" />
+          <Property Name="FilmOscarWins" Type="int" />
+        </EntityType>
+        <EntityType Name="tblGenre">
+          <Key>
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="GenreId" Type="bigint" Nullable="false" />
+          <Property Name="GenreName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="int" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="tblStudio">
+          <Key>
+            <PropertyRef Name="StudioID" />
+          </Key>
+          <Property Name="StudioID" Type="int" Nullable="false" />
+          <Property Name="StudioName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_tblFilm_tblCertificate">
+          <End Role="tblCertificate" Type="Self.tblCertificate" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCertificate">
+              <PropertyRef Name="CertificateID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmCertificateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmCountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblDirector">
+          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDirector">
+              <PropertyRef Name="DirectorID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmDirectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblLanguage">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmLanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblStudio1">
+          <End Role="tblStudio" Type="Self.tblStudio" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudio">
+              <PropertyRef Name="StudioID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmStudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoviesModelStoreContainer">
+          <EntitySet Name="tblActor" EntityType="Self.tblActor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCast" EntityType="Self.tblCast" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCertificate" EntityType="Self.tblCertificate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCountry" EntityType="Self.tblCountry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDirector" EntityType="Self.tblDirector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblFilm" EntityType="Self.tblFilm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudio" EntityType="Self.tblStudio" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblFilm_tblCertificate" Association="Self.FK_tblFilm_tblCertificate">
+            <End Role="tblCertificate" EntitySet="tblCertificate" />
+            <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblCountry" Association="Self.FK_tblFilm_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblDirector" Association="Self.FK_tblFilm_tblDirector">
+            <End Role="tblDirector" EntitySet="tblDirector" />
+            <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblLanguage" Association="Self.FK_tblFilm_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguage" />
+            <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblStudio1" Association="Self.FK_tblFilm_tblStudio1">
+            <End Role="tblStudio" EntitySet="tblStudio" />
+            <End Role="tblFilm" EntitySet="tblFilm" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MoviesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblActor">
+          <Key>
+            <PropertyRef Name="ActorID" />
+          </Key>
+          <Property Name="ActorID" Type="Int32" Nullable="false" />
+          <Property Name="ActorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ActorDOB" Type="DateTime" Precision="3" />
+          <Property Name="ActorGender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCast">
+          <Key>
+            <PropertyRef Name="CastID" />
+          </Key>
+          <Property Name="CastID" Type="Int32" Nullable="false" />
+          <Property Name="CastFilmID" Type="Int32" />
+          <Property Name="CastActorID" Type="Int32" />
+          <Property Name="CastCharacterName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblCertificate">
+          <Key>
+            <PropertyRef Name="CertificateID" />
+          </Key>
+          <Property Name="CertificateID" Type="Int64" Nullable="false" />
+          <Property Name="Certificate" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblCertificate" FromRole="tblCertificate" ToRole="tblFilm" />
+        </EntityType>
+        <EntityType Name="tblCountry">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="CountryName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblCountry" FromRole="tblCountry" ToRole="tblFilm" />
+        </EntityType>
+        <EntityType Name="tblDirector">
+          <Key>
+            <PropertyRef Name="DirectorID" />
+          </Key>
+          <Property Name="DirectorID" Type="Int32" Nullable="false" />
+          <Property Name="DirectorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DirectorDOB" Type="DateTime" Precision="3" />
+          <Property Name="DirectorGender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblDirector" FromRole="tblDirector" ToRole="tblFilm" />
+        </EntityType>
+        <EntityType Name="tblFilm">
+          <Key>
+            <PropertyRef Name="FilmID" />
+          </Key>
+          <Property Name="FilmID" Type="Int32" Nullable="false" />
+          <Property Name="FilmName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FilmReleaseDate" Type="DateTime" Precision="3" />
+          <Property Name="FilmDirectorID" Type="Int32" />
+          <Property Name="FilmLanguageID" Type="Int32" />
+          <Property Name="FilmCountryID" Type="Int32" />
+          <Property Name="FilmStudioID" Type="Int32" />
+          <Property Name="FilmSynopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FilmRunTimeMinutes" Type="Int32" />
+          <Property Name="FilmCertificateID" Type="Int64" />
+          <Property Name="FilmBudgetDollars" Type="Int32" />
+          <Property Name="FilmBoxOfficeDollars" Type="Int32" />
+          <Property Name="FilmOscarNominations" Type="Int32" />
+          <Property Name="FilmOscarWins" Type="Int32" />
+          <NavigationProperty Name="tblCertificate" Relationship="Self.FK_tblFilm_tblCertificate" FromRole="tblFilm" ToRole="tblCertificate" />
+          <NavigationProperty Name="tblCountry" Relationship="Self.FK_tblFilm_tblCountry" FromRole="tblFilm" ToRole="tblCountry" />
+          <NavigationProperty Name="tblDirector" Relationship="Self.FK_tblFilm_tblDirector" FromRole="tblFilm" ToRole="tblDirector" />
+          <NavigationProperty Name="tblLanguage" Relationship="Self.FK_tblFilm_tblLanguage" FromRole="tblFilm" ToRole="tblLanguage" />
+          <NavigationProperty Name="tblStudio" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblFilm" ToRole="tblStudio" />
+        </EntityType>
+        <EntityType Name="tblGenre">
+          <Key>
+            <PropertyRef Name="GenreId" />
+          </Key>
+          <Property Name="GenreId" Type="Int64" Nullable="false" />
+          <Property Name="GenreName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="LanguageID" />
+          </Key>
+          <Property Name="LanguageID" Type="Int32" Nullable="false" />
+          <Property Name="Language" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblLanguage" FromRole="tblLanguage" ToRole="tblFilm" />
+        </EntityType>
+        <EntityType Name="tblStudio">
+          <Key>
+            <PropertyRef Name="StudioID" />
+          </Key>
+          <Property Name="StudioID" Type="Int32" Nullable="false" />
+          <Property Name="StudioName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblFilms" Relationship="Self.FK_tblFilm_tblStudio1" FromRole="tblStudio" ToRole="tblFilm" />
+        </EntityType>
+        <Association Name="FK_tblFilm_tblCertificate">
+          <End Role="tblCertificate" Type="Self.tblCertificate" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCertificate">
+              <PropertyRef Name="CertificateID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmCertificateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmCountryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblDirector">
+          <End Role="tblDirector" Type="Self.tblDirector" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDirector">
+              <PropertyRef Name="DirectorID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmDirectorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblLanguage">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="LanguageID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmLanguageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblFilm_tblStudio1">
+          <End Role="tblStudio" Type="Self.tblStudio" Multiplicity="0..1" />
+          <End Role="tblFilm" Type="Self.tblFilm" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStudio">
+              <PropertyRef Name="StudioID" />
+            </Principal>
+            <Dependent Role="tblFilm">
+              <PropertyRef Name="FilmStudioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MoviesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblActors" EntityType="Self.tblActor" />
+          <EntitySet Name="tblCasts" EntityType="Self.tblCast" />
+          <EntitySet Name="tblCertificates" EntityType="Self.tblCertificate" />
+          <EntitySet Name="tblCountries" EntityType="Self.tblCountry" />
+          <EntitySet Name="tblDirectors" EntityType="Self.tblDirector" />
+          <EntitySet Name="tblFilms" EntityType="Self.tblFilm" />
+          <EntitySet Name="tblGenres" EntityType="Self.tblGenre" />
+          <EntitySet Name="tblLanguages" EntityType="Self.tblLanguage" />
+          <EntitySet Name="tblStudios" EntityType="Self.tblStudio" />
+          <AssociationSet Name="FK_tblFilm_tblCertificate" Association="Self.FK_tblFilm_tblCertificate">
+            <End Role="tblCertificate" EntitySet="tblCertificates" />
+            <End Role="tblFilm" EntitySet="tblFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblCountry" Association="Self.FK_tblFilm_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblFilm" EntitySet="tblFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblDirector" Association="Self.FK_tblFilm_tblDirector">
+            <End Role="tblDirector" EntitySet="tblDirectors" />
+            <End Role="tblFilm" EntitySet="tblFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblLanguage" Association="Self.FK_tblFilm_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguages" />
+            <End Role="tblFilm" EntitySet="tblFilms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblFilm_tblStudio1" Association="Self.FK_tblFilm_tblStudio1">
+            <End Role="tblStudio" EntitySet="tblStudios" />
+            <End Role="tblFilm" EntitySet="tblFilms" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MoviesModelStoreContainer" CdmEntityContainer="MoviesEntities">
+          <EntitySetMapping Name="tblActors">
+            <EntityTypeMapping TypeName="MoviesModel.tblActor">
+              <MappingFragment StoreEntitySet="tblActor">
+                <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+                <ScalarProperty Name="ActorName" ColumnName="ActorName" />
+                <ScalarProperty Name="ActorDOB" ColumnName="ActorDOB" />
+                <ScalarProperty Name="ActorGender" ColumnName="ActorGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCasts">
+            <EntityTypeMapping TypeName="MoviesModel.tblCast">
+              <MappingFragment StoreEntitySet="tblCast">
+                <ScalarProperty Name="CastID" ColumnName="CastID" />
+                <ScalarProperty Name="CastFilmID" ColumnName="CastFilmID" />
+                <ScalarProperty Name="CastActorID" ColumnName="CastActorID" />
+                <ScalarProperty Name="CastCharacterName" ColumnName="CastCharacterName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCertificates">
+            <EntityTypeMapping TypeName="MoviesModel.tblCertificate">
+              <MappingFragment StoreEntitySet="tblCertificate">
+                <ScalarProperty Name="CertificateID" ColumnName="CertificateID" />
+                <ScalarProperty Name="Certificate" ColumnName="Certificate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCountries">
+            <EntityTypeMapping TypeName="MoviesModel.tblCountry">
+              <MappingFragment StoreEntitySet="tblCountry">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDirectors">
+            <EntityTypeMapping TypeName="MoviesModel.tblDirector">
+              <MappingFragment StoreEntitySet="tblDirector">
+                <ScalarProperty Name="DirectorID" ColumnName="DirectorID" />
+                <ScalarProperty Name="DirectorName" ColumnName="DirectorName" />
+                <ScalarProperty Name="DirectorDOB" ColumnName="DirectorDOB" />
+                <ScalarProperty Name="DirectorGender" ColumnName="DirectorGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFilms">
+            <EntityTypeMapping TypeName="MoviesModel.tblFilm">
+              <MappingFragment StoreEntitySet="tblFilm">
+                <ScalarProperty Name="FilmID" ColumnName="FilmID" />
+                <ScalarProperty Name="FilmName" ColumnName="FilmName" />
+                <ScalarProperty Name="FilmReleaseDate" ColumnName="FilmReleaseDate" />
+                <ScalarProperty Name="FilmDirectorID" ColumnName="FilmDirectorID" />
+                <ScalarProperty Name="FilmLanguageID" ColumnName="FilmLanguageID" />
+                <ScalarProperty Name="FilmCountryID" ColumnName="FilmCountryID" />
+                <ScalarProperty Name="FilmStudioID" ColumnName="FilmStudioID" />
+                <ScalarProperty Name="FilmSynopsis" ColumnName="FilmSynopsis" />
+                <ScalarProperty Name="FilmRunTimeMinutes" ColumnName="FilmRunTimeMinutes" />
+                <ScalarProperty Name="FilmCertificateID" ColumnName="FilmCertificateID" />
+                <ScalarProperty Name="FilmBudgetDollars" ColumnName="FilmBudgetDollars" />
+                <ScalarProperty Name="FilmBoxOfficeDollars" ColumnName="FilmBoxOfficeDollars" />
+                <ScalarProperty Name="FilmOscarNominations" ColumnName="FilmOscarNominations" />
+                <ScalarProperty Name="FilmOscarWins" ColumnName="FilmOscarWins" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGenres">
+            <EntityTypeMapping TypeName="MoviesModel.tblGenre">
+              <MappingFragment StoreEntitySet="tblGenre">
+                <ScalarProperty Name="GenreId" ColumnName="GenreId" />
+                <ScalarProperty Name="GenreName" ColumnName="GenreName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLanguages">
+            <EntityTypeMapping TypeName="MoviesModel.tblLanguage">
+              <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudios">
+            <EntityTypeMapping TypeName="MoviesModel.tblStudio">
+              <MappingFragment StoreEntitySet="tblStudio">
+                <ScalarProperty Name="StudioID" ColumnName="StudioID" />
+                <ScalarProperty Name="StudioName" ColumnName="StudioName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
